@@ -4,7 +4,7 @@ require 'webmate-client/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "webmate-client"
-  gem.version       = Webmate::VERSION
+  gem.version       = WebmateClient::VERSION
 
   gem.authors       = ["Iskander Haziev"]
   gem.email         = ["gvalmon@gmail.com"]
