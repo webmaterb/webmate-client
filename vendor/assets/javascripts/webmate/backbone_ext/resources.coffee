@@ -33,25 +33,6 @@ Backbone.Collection::bindSocketEvents = () ->
     if collection.remove(collection.parse(response))
       collection.trigger('change', collection, response, {})
 
-  ###
-  # bind
-  client.on "#{path}/update", (response, params) =>
-    return unless response._id
-    @get(response._id).set(response)
-
-  client.on "#{@collectionName()}/read", (response, params)->
-    model.reset(response)
-    model.trigger "sync", model, response
-
-  client.on "#{@collectionName()}/create", (response, params)->
-    model.add(response)
-    #model.get(response._id).trigger 'sync', response
-    #if clientId is params._client_id
-    #  model.add(response)
-    #else
-    #  model.get(params._cid).set(response)
-  ###
-
 # update existing functions
 
 Backbone.Collection::_prepareModelWithoutAssociations = Backbone.Collection::_prepareModel
