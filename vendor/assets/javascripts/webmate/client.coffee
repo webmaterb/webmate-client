@@ -43,9 +43,14 @@ class Webmate.Client
     @bindings[action].push(callback)
     @
 
-  send: (path, data, method) ->
+  send: (path, params, method) ->
+    data = {}
     data.path = path
     data.method = method
+    data.params = params
+    data.metadata = {
+      request_id: Math.random().toString(36).substr(2);
+    }
     packet = {
       type: 'message',
       data: JSON.stringify(data)
