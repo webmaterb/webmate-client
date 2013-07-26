@@ -48,7 +48,7 @@ class Webmate.Client
     data.path = path
     data.method = method
     data.params = params
-    data.metadata = {
+    data.params.metadata = {
       request_id: Math.random().toString(36).substr(2);
     }
     packet = {
