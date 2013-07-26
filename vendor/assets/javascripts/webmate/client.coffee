@@ -5,6 +5,7 @@ class Webmate.Client
 
     if @useWebsockets()
       @websocket = @createConnection( (message) ->
+        console.log(message)
         metadata = message.request.metadata
         eventBindings = @bindings["#{metadata.collection_url}/#{metadata.method}"]
 
@@ -31,8 +32,8 @@ class Webmate.Client
 
     socket.onPacket = (packet) =>
       return unless packet.type is 'message'
-      parsed_packet = Webmate.Client::parsePacketData(packet.data)
-      onMessageHandler.call(@, parsed_packet)
+      response = JSON.parse(packet.data)
+      onMessageHandler.call(@, response)
 
     socket.connect()
     socket
@@ -50,11 +51,6 @@ class Webmate.Client
       data: JSON.stringify(data)
     }
     @websocket.packet(packet)
-
-Webmate.Client::parsePacketData = (packet_data) ->
-  data = JSON.parse(packet_data)
-  data.response.body = JSON.parse(data.response.body)
-  data
 
 Webmate.connect = (channel, callback)->
   client = new Webmate.Client(channel, callback)
